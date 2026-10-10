@@ -1,0 +1,4 @@
+# Copy to config/local.sh for private machine overrides (ignored by Git).
+# NVIDIA=false
+# EXTRA_PACKAGES=(zsh vim ripgrep)
+# UPDATE_SYSTEM=false
