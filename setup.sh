@@ -14,7 +14,7 @@ done
 source "$ROOT/config/defaults.sh"
 [[ ! -f $CONFIG ]] || source "$CONFIG"
 source "$ROOT/scripts/common.sh"
-for key in UPDATE_SYSTEM RPMFUSION CHROME NERD_FONT CLAUDE CODEX; do
+for key in UPDATE_SYSTEM RPMFUSION CHROME GHOSTTY ZSH_SETUP MODERN_TOOLS ZED NERD_FONT CLAUDE CODEX; do
     [[ ${!key} == true || ${!key} == false ]] || die "$key must be true or false"
 done
 [[ $NVIDIA == auto || $NVIDIA == true || $NVIDIA == false ]] || die "NVIDIA must be auto, true or false"

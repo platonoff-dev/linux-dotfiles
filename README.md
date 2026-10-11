@@ -21,10 +21,32 @@ Defaults:
 - System upgrades on each run (`UPDATE_SYSTEM=false` to skip).
 - NVIDIA detection by PCI vendor; only machines with NVIDIA hardware receive `akmod-nvidia`. Force with `NVIDIA=true` or disable with `NVIDIA=false`. `NVIDIA_PACKAGE` supports selecting a supported legacy driver package.
 - CaskaydiaCove Nerd Font (CascadiaCode archive, pinned to v3.4.0) and KDE fixed-width font preference.
+- Ghostty from the [documented Fedora COPR](https://ghostty.org/docs/install/binary), with Zsh as its shell and CaskaydiaCove Nerd Font Mono at 11pt. Override `GHOSTTY_FONT_FAMILY` and `GHOSTTY_FONT_SIZE` for another font or size. Only shell and font keys are managed; other Ghostty preferences are preserved.
+- Zed stable via its [official user installer](https://zed.dev/docs/linux); existing `zed` executables are preserved. Set `GHOSTTY=false` or `ZED=false` to skip either app.
+- Oh My Zsh with its Git plugin and [Starship](https://starship.rs/guide/) as the prompt (`ZSH_SETUP=false` to skip). Starship installs into `~/.local/bin` when absent. A managed block in `${ZDOTDIR:-$HOME}/.zshrc` loads both; other settings and existing plugins are preserved, and the original file is backed up once as `.zshrc.pre-linux-dotfiles`. Existing Starship preferences are preserved. Open a new Ghostty window after setup. The account login shell is unchanged.
+- Ghostty is set as Plasma's default terminal and launches with `Super+Enter` (Windows key + Enter). Log out/in after setup to load the shortcut. Other shortcuts are preserved.
 - Claude Code native stable installer and Codex via npm with a user-local prefix. Existing executable installations are preserved, including your standalone Codex installation. New installations use `~/.local/bin`; ensure this directory is on your shell PATH. Log into each tool separately after installation.
 - Additional RPM packages via `EXTRA_PACKAGES=(zsh vim ripgrep)`.
+- Modern CLI tools enabled by default (`MODERN_TOOLS=false` to skip): `eza`, `bat`, `ripgrep` (`rg`), `fd-find` (`fd`), `fzf`, `zoxide`, `btop`, `git-delta` (`delta`), `du-dust` (`dust`), `duf`, and `tealdeer` (`tldr`). All install through DNF. Git uses delta for its pager and interactive diff filter; other Git settings are preserved.
+- With `ZSH_SETUP=true`, modern tools also add `ll` (detailed listing), `la` (including hidden files), `lt` (two-level tree), fzf keys (`Ctrl+R` history, `Ctrl+T` files, `Alt+C` directories), and zoxide's `z`/`zi` directory jumps. fzf uses fd to find files, including hidden files but excluding `.git`. Run `tldr --update` once to download command examples. Disabling modern tools and rerunning removes their managed Zsh block when Zsh setup remains enabled; installed packages and Git pager settings remain.
 
 Feature switches are `true`/`false`, except `NVIDIA=auto`. Disabling a feature skips it; it does not uninstall packages or delete repositories. Keep RPM Fusion enabled when managing NVIDIA.
+
+Modern-tool aliases in interactive Zsh:
+
+| Alias | Command / behavior |
+| --- | --- |
+| `ls`, `l` | eza with icons and directories first |
+| `ll` | Detailed eza listing with Git status |
+| `la` | Detailed listing including hidden files |
+| `lt` | Tree limited to two levels |
+| `tree` | Full eza tree |
+| `cat` | bat with syntax highlighting, no decorations or paging |
+| `top` | btop interactive monitor |
+| `duh` | dust directory sizes |
+| `dfh` | duf filesystem capacity |
+
+Use `rg`, `fd`, `fzf`, `bat`, and `tldr` directly; `z` and `zi` come from zoxide. `grep`, `find`, `cd`, `du`, `df`, and `diff` keep their standard behavior because their options differ from the modern tools. Aliases are enabled only when the corresponding executable exists. Use `command ls`, `command cat`, `command tree`, or `command top` to bypass an alias. These aliases do not affect setup scripts.
 
 ## Repeat runs and recovery
 

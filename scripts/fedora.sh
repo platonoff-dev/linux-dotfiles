@@ -11,8 +11,16 @@ if $CHROME; then
         run sudo install -m 0644 "$ROOT/repos/google-chrome.repo" /etc/yum.repos.d/google-chrome.repo
     fi
 fi
+if $GHOSTTY; then
+    if [[ ! -f /etc/yum.repos.d/_copr:copr.fedorainfracloud.org:scottames:ghostty.repo ]]; then
+        run sudo dnf copr enable -y scottames/ghostty
+    fi
+fi
 if $UPDATE_SYSTEM; then run sudo dnf upgrade --refresh -y; fi
 packages=(git curl unzip fontconfig)
+if $MODERN_TOOLS; then
+    packages+=(eza bat ripgrep fd-find fzf zoxide btop git-delta du-dust duf tealdeer)
+fi
 if [[ $DESKTOP == kde ]]; then
     if ! rpm -q plasma-desktop >/dev/null 2>&1; then
         run sudo dnf install -y @kde-desktop-environment
@@ -20,6 +28,8 @@ if [[ $DESKTOP == kde ]]; then
     packages+=(konsole)
 fi
 if $CHROME; then packages+=(google-chrome-stable); fi
+if $GHOSTTY; then packages+=(ghostty); fi
+if $GHOSTTY || $ZSH_SETUP; then packages+=(zsh); fi
 if $NVIDIA; then packages+=("$NVIDIA_PACKAGE" mokutil); fi
 if $CODEX && ! command -v codex >/dev/null; then packages+=(nodejs npm); fi
 packages+=("${EXTRA_PACKAGES[@]}")

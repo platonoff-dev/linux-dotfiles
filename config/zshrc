@@ -1,0 +1,14 @@
+# BEGIN linux-dotfiles zsh
+export PATH="$HOME/.local/bin:$PATH"
+export ZSH="$HOME/.oh-my-zsh"
+ZSH_THEME=""
+if (( ! ${+plugins} )); then
+    plugins=(git)
+fi
+if [[ -r "$ZSH/oh-my-zsh.sh" ]] && (( ! ${+functions[omz]} )); then
+    source "$ZSH/oh-my-zsh.sh"
+fi
+if command -v starship >/dev/null; then
+    eval "$(starship init zsh)"
+fi
+# END linux-dotfiles zsh

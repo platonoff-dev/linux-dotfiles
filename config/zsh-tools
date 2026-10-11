@@ -1,0 +1,34 @@
+# BEGIN linux-dotfiles tools
+if command -v eza >/dev/null; then
+    alias ls='eza --icons=auto --group-directories-first'
+    alias l='eza --icons=auto --group-directories-first'
+    alias ll='eza --long --git --icons=auto --group-directories-first'
+    alias la='eza --long --all --git --icons=auto --group-directories-first'
+    alias lt='eza --tree --level=2 --icons=auto --group-directories-first'
+    alias tree='eza --tree --icons=auto --group-directories-first'
+fi
+if command -v bat >/dev/null; then
+    # Keep cat useful for pipelines; use bat directly for paging and line numbers.
+    alias cat='bat --paging=never --style=plain'
+fi
+if command -v btop >/dev/null; then
+    alias top='btop'
+fi
+if command -v dust >/dev/null; then
+    alias duh='dust'
+fi
+if command -v duf >/dev/null; then
+    alias dfh='duf'
+fi
+if command -v fzf >/dev/null; then
+    if command -v fd >/dev/null; then
+        export FZF_DEFAULT_COMMAND='fd --type f --hidden --exclude .git'
+        export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+        export FZF_ALT_C_COMMAND='fd --type d --hidden --exclude .git'
+    fi
+    eval "$(fzf --zsh)"
+fi
+if command -v zoxide >/dev/null; then
+    eval "$(zoxide init zsh)"
+fi
+# END linux-dotfiles tools

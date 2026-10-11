@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Ghostty
+Exec=ghostty
+TryExec=ghostty
+Icon=com.mitchellh.ghostty
+Terminal=false
+Categories=System;TerminalEmulator;
+X-KDE-Shortcuts=Meta+Return

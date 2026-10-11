@@ -2,3 +2,7 @@
 # NVIDIA=false
 # EXTRA_PACKAGES=(zsh vim ripgrep)
 # UPDATE_SYSTEM=false
+# GHOSTTY_FONT_SIZE=12
+# ZED=false
+# ZSH_SETUP=false
+# MODERN_TOOLS=false
